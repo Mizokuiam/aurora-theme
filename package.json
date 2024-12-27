@@ -1,0 +1,48 @@
+{
+  "name": "aurora-theme",
+  "version": "1.0.0",
+  "description": "A premium theme collection for modern development environments",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:marketing": "node scripts/build-marketing.js",
+    "package:vscode": "node scripts/package-vscode.js",
+    "deploy:marketing": "node scripts/deploy-marketing.js",
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "theme",
+    "color-theme",
+    "vscode",
+    "jetbrains",
+    "sublime",
+    "atom"
+  ],
+  "author": "Aurora Theme Team",
+  "license": "MIT",
+  "dependencies": {
+    "color": "^4.2.3",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.21.0",
+    "clean-css": "^5.3.2",
+    "eslint": "^8.55.0",
+    "html-minifier": "^4.0.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.0",
+    "terser": "^5.24.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/aurora-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/username/aurora-theme/issues"
+  },
+  "homepage": "https://aurora-theme.com"
+}

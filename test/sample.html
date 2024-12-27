@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Theme Demo</title>
+    <style>
+        :root {
+            --primary-bg: #1a1b26;
+            --primary-fg: #c0caf5;
+            --accent: #7aa2f7;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--primary-bg);
+            color: var(--primary-fg);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .theme-selector {
+            margin-bottom: 2rem;
+        }
+
+        select {
+            background: var(--primary-bg);
+            color: var(--primary-fg);
+            border: 1px solid var(--accent);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .preview-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aurora Theme Demo</h1>
+
+        <div class="theme-selector">
+            <select id="themeSelect">
+                <option value="default">Aurora Default</option>
+                <option value="storm">Aurora Storm</option>
+                <option value="night">Aurora Night</option>
+                <option value="moonlight">Aurora Moonlight</option>
+                <option value="sunset">Aurora Sunset</option>
+                <option value="forest">Aurora Forest</option>
+                <option value="ocean">Aurora Ocean</option>
+            </select>
+        </div>
+
+        <div class="preview-section">
+            <h2>Code Preview</h2>
+            <pre><code class="language-javascript">
+class ThemeManager {
+    constructor(defaultTheme = 'aurora') {
+        this.currentTheme = defaultTheme;
+        this.variants = new Set();
+    }
+
+    async switchTheme(variant) {
+        try {
+            const theme = await this.loadTheme(variant);
+            await this.applyTheme(theme);
+        } catch (error) {
+            console.error('Failed to switch theme:', error);
+        }
+    }
+}
+            </code></pre>
+        </div>
+
+        <div class="preview-section">
+            <h2>UI Elements</h2>
+            <p>This is a paragraph with some <code>inline code</code> and a 
+               <a href="#">link</a> to demonstrate text styles.</p>
+            
+            <button id="testButton">Test Button</button>
+            <input type="text" placeholder="Input field">
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('themeSelect').addEventListener('change', (e) => {
+            document.body.dataset.theme = e.target.value;
+        });
+    </script>
+</body>
+</html>

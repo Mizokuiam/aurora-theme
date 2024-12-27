@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.npm
+.yarn
+
+# Build output
+dist/
+build/
+*.vsix
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+.atom/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/

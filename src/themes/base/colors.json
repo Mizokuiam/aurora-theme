@@ -1,0 +1,175 @@
+{
+  "name": "Aurora",
+  "version": "1.0.0",
+  "type": "dark",
+  "colors": {
+    "primary": {
+      "background": "#1a1b26",
+      "foreground": "#c0caf5",
+      "accent": "#7aa2f7"
+    },
+    "syntax": {
+      "keywords": "#9d7cd8",
+      "strings": "#9ece6a",
+      "numbers": "#ff9e64",
+      "functions": "#7aa2f7",
+      "comments": "#565f89",
+      "variables": "#bb9af7",
+      "types": "#2ac3de",
+      "operators": "#89ddff"
+    },
+    "ui": {
+      "selection": "#283457",
+      "activeLineBackground": "#1f2335",
+      "border": "#15161e",
+      "widgetBackground": "#1f2335",
+      "shadowColor": "#10111a"
+    },
+    "terminal": {
+      "black": "#15161e",
+      "red": "#f7768e",
+      "green": "#9ece6a",
+      "yellow": "#e0af68",
+      "blue": "#7aa2f7",
+      "magenta": "#bb9af7",
+      "cyan": "#7dcfff",
+      "white": "#c0caf5"
+    }
+  },
+  "variants": {
+    "storm": {
+      "primary": {
+        "background": "#24283b",
+        "foreground": "#c0caf5",
+        "accent": "#7dcfff"
+      }
+    },
+    "night": {
+      "primary": {
+        "background": "#1a1b26",
+        "foreground": "#c0caf5",
+        "accent": "#bb9af7"
+      }
+    },
+    "moonlight": {
+      "primary": {
+        "background": "#222436",
+        "foreground": "#c8d3f5",
+        "accent": "#82aaff"
+      },
+      "syntax": {
+        "keywords": "#c099ff",
+        "strings": "#c3e88d",
+        "numbers": "#ff966c",
+        "functions": "#82aaff",
+        "comments": "#636da6",
+        "variables": "#c099ff"
+      }
+    },
+    "sunset": {
+      "primary": {
+        "background": "#1f1d2e",
+        "foreground": "#e0def4",
+        "accent": "#eb6f92"
+      },
+      "syntax": {
+        "keywords": "#eb6f92",
+        "strings": "#f6c177",
+        "numbers": "#ea9a97",
+        "functions": "#9ccfd8",
+        "comments": "#6e6a86",
+        "variables": "#c4a7e7"
+      }
+    },
+    "forest": {
+      "primary": {
+        "background": "#1d2021",
+        "foreground": "#d4be98",
+        "accent": "#a9b665"
+      },
+      "syntax": {
+        "keywords": "#ea6962",
+        "strings": "#a9b665",
+        "numbers": "#d8a657",
+        "functions": "#7daea3",
+        "comments": "#665c54",
+        "variables": "#d3869b"
+      }
+    },
+    "ocean": {
+      "primary": {
+        "background": "#0f111a",
+        "foreground": "#a6accd",
+        "accent": "#84ffff"
+      },
+      "syntax": {
+        "keywords": "#c792ea",
+        "strings": "#c3e88d",
+        "numbers": "#f78c6c",
+        "functions": "#82aaff",
+        "comments": "#464b5d",
+        "variables": "#89ddff"
+      }
+    },
+    "sakura": {
+      "primary": {
+        "background": "#1f1d2e",
+        "foreground": "#e2e0ec",
+        "accent": "#f0a6d2"
+      },
+      "syntax": {
+        "keywords": "#f0a6d2",
+        "strings": "#f6c6e6",
+        "numbers": "#e9a6c2",
+        "functions": "#c4a6f0",
+        "comments": "#6e6a86",
+        "variables": "#d6a6e9"
+      }
+    },
+    "ember": {
+      "primary": {
+        "background": "#1c1917",
+        "foreground": "#e5d4c3",
+        "accent": "#ff7f50"
+      },
+      "syntax": {
+        "keywords": "#ff7f50",
+        "strings": "#ffa07a",
+        "numbers": "#ff6347",
+        "functions": "#ffd700",
+        "comments": "#665c54",
+        "variables": "#daa520"
+      }
+    },
+    "glacier": {
+      "primary": {
+        "background": "#161821",
+        "foreground": "#c6c8d1",
+        "accent": "#84a0c6"
+      },
+      "syntax": {
+        "keywords": "#a093c7",
+        "strings": "#89b8c2",
+        "numbers": "#b4be82",
+        "functions": "#84a0c6",
+        "comments": "#6b7089",
+        "variables": "#a093c7"
+      }
+    },
+    "aurora": {
+      "primary": {
+        "background": "#1a1b26",
+        "foreground": "#d8dee9",
+        "accent": "#88c0d0"
+      },
+      "syntax": {
+        "keywords": "#81a1c1",
+        "strings": "#a3be8c",
+        "numbers": "#b48ead",
+        "functions": "#88c0d0",
+        "comments": "#4c566a",
+        "variables": "#8fbcbb"
+      }
+    }
+  }
+}

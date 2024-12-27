@@ -1,0 +1,55 @@
+// Aurora Theme for Atom/Pulsar
+// Syntax Styles
+
+@import "syntax-variables";
+
+.syntax--comment {
+  color: @syntax-comment-color;
+  font-style: italic;
+}
+
+.syntax--string {
+  color: @syntax-string-color;
+}
+
+.syntax--constant {
+  &.syntax--numeric {
+    color: @syntax-number-color;
+  }
+}
+
+.syntax--keyword {
+  color: @syntax-keyword-color;
+}
+
+.syntax--storage {
+  color: @syntax-keyword-color;
+}
+
+.syntax--entity {
+  &.syntax--name.syntax--function {
+    color: @syntax-function-color;
+  }
+  
+  &.syntax--name.syntax--type {
+    color: @syntax-type-color;
+  }
+}
+
+.syntax--variable {
+  color: @syntax-variable-color;
+  
+  &.syntax--parameter {
+    color: @syntax-parameter-color;
+  }
+}
+
+.syntax--support {
+  &.syntax--function {
+    color: @syntax-function-color;
+  }
+  
+  &.syntax--type {
+    color: @syntax-type-color;
+  }
+}
