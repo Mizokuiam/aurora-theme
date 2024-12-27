@@ -1,12 +1,25 @@
 const fs = require('fs-extra');
 const path = require('path');
-const contrast = require('wcag-contrast');
 
 function hexToRGB(hex) {
-    const r = parseInt(hex.slice(1, 3), 16) / 255;
-    const g = parseInt(hex.slice(3, 5), 16) / 255;
-    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
     return [r, g, b];
+}
+
+function getLuminance(r, g, b) {
+    const [rs, gs, bs] = [r, g, b].map(c => {
+        c = c / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function getContrastRatio(l1, l2) {
+    const lighter = Math.max(l1, l2);
+    const darker = Math.min(l1, l2);
+    return (lighter + 0.05) / (darker + 0.05);
 }
 
 async function checkContrast() {
@@ -18,9 +31,13 @@ async function checkContrast() {
             const theme = await fs.readJson(path.join(vscodePath, file));
             const bg = theme.colors['editor.background'];
             const fg = theme.colors['editor.foreground'];
-            const ratio = contrast.rgb(hexToRGB(bg), hexToRGB(fg));
+            const [bgR, bgG, bgB] = hexToRGB(bg);
+            const [fgR, fgG, fgB] = hexToRGB(fg);
+            const bgLum = getLuminance(bgR, bgG, bgB);
+            const fgLum = getLuminance(fgR, fgG, fgB);
+            const ratio = getContrastRatio(bgLum, fgLum);
             if (ratio < 4.5) {
-                throw new Error(`VS Code theme ${file} has insufficient contrast ratio: ${ratio}`);
+                throw new Error(`VS Code theme ${file} has insufficient contrast ratio: ${ratio.toFixed(2)}`);
             }
         }
     }
@@ -36,9 +53,13 @@ async function checkContrast() {
             if (bgMatch && fgMatch) {
                 const bg = '#' + bgMatch[1];
                 const fg = '#' + fgMatch[1];
-                const ratio = contrast.rgb(hexToRGB(bg), hexToRGB(fg));
+                const [bgR, bgG, bgB] = hexToRGB(bg);
+                const [fgR, fgG, fgB] = hexToRGB(fg);
+                const bgLum = getLuminance(bgR, bgG, bgB);
+                const fgLum = getLuminance(fgR, fgG, fgB);
+                const ratio = getContrastRatio(bgLum, fgLum);
                 if (ratio < 4.5) {
-                    throw new Error(`JetBrains theme ${file} has insufficient contrast ratio: ${ratio}`);
+                    throw new Error(`JetBrains theme ${file} has insufficient contrast ratio: ${ratio.toFixed(2)}`);
                 }
             }
         }
