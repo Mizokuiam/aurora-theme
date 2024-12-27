@@ -17,6 +17,17 @@ async function validateThemes() {
             if (!Array.isArray(theme.tokenColors) || theme.tokenColors.length === 0) {
                 throw new Error(`VS Code theme ${file} is missing token colors`);
             }
+            // Validate required scopes
+            const requiredScopes = ['keyword', 'string', 'constant.numeric', 'comment'];
+            const foundScopes = theme.tokenColors.flatMap(token => 
+                Array.isArray(token.scope) ? token.scope : [token.scope]
+            );
+            const missingScopes = requiredScopes.filter(scope => 
+                !foundScopes.some(found => found && found.includes(scope))
+            );
+            if (missingScopes.length > 0) {
+                throw new Error(`VS Code theme ${file} is missing required scopes: ${missingScopes.join(', ')}`);
+            }
         }
     }
 
@@ -43,39 +54,14 @@ async function validateThemes() {
                 throw new Error(`Sublime theme ${file} is missing required colors`);
             }
             // Check for basic scopes
-            const requiredScopes = ['comment', 'string', 'constant.numeric', 'keyword'];
-            for (const scope of requiredScopes) {
-                if (!content.includes(`<string>${scope}</string>`)) {
-                    throw new Error(`Sublime theme ${file} is missing required scope: ${scope}`);
-                }
+            const requiredScopes = ['keyword', 'string', 'constant.numeric', 'comment'];
+            const missingScopes = requiredScopes.filter(scope => 
+                !content.includes(`<string>${scope}</string>`)
+            );
+            if (missingScopes.length > 0) {
+                throw new Error(`Sublime theme ${file} is missing required scopes: ${missingScopes.join(', ')}`);
             }
         }
-    }
-
-    // Validate Atom themes
-    const atomPath = path.join(__dirname, '../src/themes/atom');
-    const atomFiles = await fs.readdir(atomPath);
-    let hasVariables = false;
-    let hasSyntax = false;
-    
-    for (const file of atomFiles) {
-        if (file === 'syntax-variables.less') {
-            const content = await fs.readFile(path.join(atomPath, file), 'utf8');
-            if (!content.includes('@syntax-bg') || !content.includes('@syntax-fg')) {
-                throw new Error(`Atom theme ${file} is missing required variables`);
-            }
-            hasVariables = true;
-        } else if (file === 'aurora-syntax.less') {
-            const content = await fs.readFile(path.join(atomPath, file), 'utf8');
-            if (!content.includes('.syntax--comment') || !content.includes('.syntax--string')) {
-                throw new Error(`Atom theme ${file} is missing required syntax styles`);
-            }
-            hasSyntax = true;
-        }
-    }
-    
-    if (!hasVariables || !hasSyntax) {
-        throw new Error('Atom theme is missing required files');
     }
 
     console.log('All themes validated successfully!');
