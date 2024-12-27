@@ -29,8 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Build project
-        run: npm run build
+      - name: Build marketing site
+        run: |
+          npm run build:marketing
+          ls -la dist/marketing
         
       - name: Setup Pages
         uses: actions/configure-pages@v3
