@@ -3,53 +3,91 @@
 
 @import "syntax-variables";
 
+// Base colors
+@syntax-bg: #1a1b26;
+@syntax-fg: #c0caf5;
+@syntax-gutter: #565f89;
+@syntax-guide: #292e42;
+@syntax-accent: #7aa2f7;
+
+// Monochrome
+@mono-1: #c0caf5; // Default text
+@mono-2: #9699a3;
+@mono-3: #565f89;
+
+// Colors
+@hue-1: #2ac3de; // Types
+@hue-2: #7aa2f7; // Functions
+@hue-3: #9d7cd8; // Keywords
+@hue-4: #9ece6a; // Strings
+@hue-5: #f7768e; // Error
+@hue-5-2: #ff9e64; // Numbers
+@hue-6: #bb9af7; // Variables
+@hue-6-2: #e0af68; // Constants
+
+// Base
+atom-text-editor {
+  background-color: @syntax-bg;
+  color: @syntax-fg;
+
+  .gutter {
+    background-color: @syntax-bg;
+    color: @syntax-gutter;
+  }
+
+  .invisible-character {
+    color: @syntax-guide;
+  }
+
+  .indent-guide {
+    color: @syntax-guide;
+  }
+
+  .wrap-guide {
+    background-color: @syntax-guide;
+  }
+
+  .selection .region {
+    background-color: #283457;
+  }
+}
+
+// Syntax highlighting
 .syntax--comment {
-  color: @syntax-comment-color;
+  color: @mono-3;
   font-style: italic;
 }
 
+.syntax--keyword {
+  color: @hue-3;
+}
+
 .syntax--string {
-  color: @syntax-string-color;
+  color: @hue-4;
 }
 
 .syntax--constant {
-  &.syntax--numeric {
-    color: @syntax-number-color;
-  }
-}
-
-.syntax--keyword {
-  color: @syntax-keyword-color;
-}
-
-.syntax--storage {
-  color: @syntax-keyword-color;
-}
-
-.syntax--entity {
-  &.syntax--name.syntax--function {
-    color: @syntax-function-color;
-  }
-  
-  &.syntax--name.syntax--type {
-    color: @syntax-type-color;
-  }
+  color: @hue-6-2;
 }
 
 .syntax--variable {
-  color: @syntax-variable-color;
-  
-  &.syntax--parameter {
-    color: @syntax-parameter-color;
-  }
+  color: @hue-6;
 }
 
 .syntax--support {
-  &.syntax--function {
-    color: @syntax-function-color;
-  }
-  
-  &.syntax--type {
-    color: @syntax-type-color;
-  }
+  color: @hue-1;
+}
+
+.syntax--entity {
+  color: @hue-2;
+}
+
+.syntax--numeric {
+  color: @hue-5-2;
+}
+
+.syntax--bracket-matcher .region {
+  border-bottom: 1px solid @syntax-accent;
+  margin-top: -1px;
+  opacity: .7;
 }

@@ -1,5 +1,12 @@
 // Aurora Theme Variables
 
+// Base colors (required)
+@syntax-bg: #1a1b26;
+@syntax-fg: #c0caf5;
+
+// This defines all syntax variables that syntax themes must implement when they
+// include a syntax-variables.less file.
+
 // General colors
 @syntax-text-color: #c0caf5;
 @syntax-cursor-color: #7aa2f7;
@@ -8,33 +15,46 @@
 @syntax-background-color: #1a1b26;
 
 // Guide colors
-@syntax-wrap-guide-color: #565f89;
-@syntax-indent-guide-color: #565f89;
-@syntax-invisible-character-color: #565f89;
+@syntax-wrap-guide-color: #292e42;
+@syntax-indent-guide-color: #292e42;
+@syntax-invisible-character-color: #292e42;
 
 // For find and replace markers
-@syntax-result-marker-color: #7aa2f7;
-@syntax-result-marker-color-selected: #c0caf5;
+@syntax-result-marker-color: #565f89;
+@syntax-result-marker-color-selected: #7aa2f7;
 
-// Syntax colors
+// Gutter colors
+@syntax-gutter-text-color: #565f89;
+@syntax-gutter-text-color-selected: #c0caf5;
+@syntax-gutter-background-color: #1a1b26;
+@syntax-gutter-background-color-selected: #292e42;
+
+// For git diff info. i.e. in the gutter
+@syntax-color-renamed: #7aa2f7;
+@syntax-color-added: #9ece6a;
+@syntax-color-modified: #e0af68;
+@syntax-color-removed: #f7768e;
+
+// For language entity colors
+@syntax-color-variable: #bb9af7;
+@syntax-color-constant: #ff9e64;
+@syntax-color-property: #7dcfff;
+@syntax-color-value: #9ece6a;
+@syntax-color-function: #7aa2f7;
+@syntax-color-method: #7aa2f7;
+@syntax-color-class: #2ac3de;
+@syntax-color-keyword: #9d7cd8;
+@syntax-color-tag: #f7768e;
+@syntax-color-attribute: #bb9af7;
+@syntax-color-import: #9d7cd8;
+@syntax-color-snippet: #9ece6a;
+
+// Custom variables
 @syntax-comment-color: #565f89;
 @syntax-string-color: #9ece6a;
 @syntax-number-color: #ff9e64;
 @syntax-keyword-color: #9d7cd8;
 @syntax-function-color: #7aa2f7;
 @syntax-type-color: #2ac3de;
-@syntax-class-color: #2ac3de;
 @syntax-variable-color: #bb9af7;
 @syntax-parameter-color: #e0af68;
-@syntax-operator-color: #89ddff;
-
-// Git colors
-@syntax-git-new: #9ece6a;
-@syntax-git-modified: #7aa2f7;
-@syntax-git-removed: #f7768e;
-
-// For language entity colors
-@syntax-color-renamed: #7aa2f7;
-@syntax-color-added: #9ece6a;
-@syntax-color-modified: #e0af68;
-@syntax-color-removed: #f7768e;
