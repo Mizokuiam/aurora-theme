@@ -43,7 +43,7 @@ aurora-theme/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/aurora-theme.git
+git clone https://github.com/mizokuiam/aurora-theme.git
 cd aurora-theme
 ```
 
@@ -128,6 +128,5 @@ By contributing, you agree that your contributions will be licensed under its MI
 
 ## Community
 
-- Join our [Discord](https://discord.gg/aurora-theme)
-- Follow us on [Twitter](https://twitter.com/aurora_theme)
-- Star us on [GitHub](https://github.com/aurora-theme)
+- Follow us on [Twitter](https://x.com/MrMizoku)
+- Star us on [GitHub](https://github.com/mizokuiam/aurora-theme)

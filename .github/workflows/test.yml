@@ -1,0 +1,118 @@
+name: Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Validate theme files
+      run: npm run validate
+    
+    - name: Check color contrast
+      run: npm run check-contrast
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build themes
+      run: npm run build
+    
+    - name: Upload VS Code theme
+      uses: actions/upload-artifact@v3
+      with:
+        name: vscode-theme
+        path: dist/vscode
+    
+    - name: Upload JetBrains theme
+      uses: actions/upload-artifact@v3
+      with:
+        name: jetbrains-theme
+        path: dist/jetbrains
+    
+    - name: Upload Sublime theme
+      uses: actions/upload-artifact@v3
+      with:
+        name: sublime-theme
+        path: dist/sublime
+    
+    - name: Upload Atom theme
+      uses: actions/upload-artifact@v3
+      with:
+        name: atom-theme
+        path: dist/atom
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    
+    - name: Zip themes
+      run: |
+        zip -r vscode-theme.zip vscode-theme
+        zip -r jetbrains-theme.zip jetbrains-theme
+        zip -r sublime-theme.zip sublime-theme
+        zip -r atom-theme.zip atom-theme
+    
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./vscode-theme.zip
+        asset_name: vscode-theme.zip
+        asset_content_type: application/zip

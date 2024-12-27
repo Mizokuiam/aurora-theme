@@ -10,10 +10,14 @@ const THEMES = [
     { name: 'sunset', colors: ['#f7768e', '#ff9e64', '#e0af68'] },
     { name: 'forest', colors: ['#9ece6a', '#73daca', '#b4f9f8'] },
     { name: 'ocean', colors: ['#2ac3de', '#7dcfff', '#89ddff'] },
-    { name: 'sakura', colors: ['#f7768e', '#ff9e64', '#bb9af7'] },
+    { name: 'sakura', colors: ['#f7768e', '#bb9af7', '#ff9e64'] },
     { name: 'ember', colors: ['#f7768e', '#ff9e64', '#e0af68'] },
-    { name: 'glacier', colors: ['#7dcfff', '#b4f9f8', '#c0caf5'] },
-    { name: 'borealis', colors: ['#9ece6a', '#7aa2f7', '#bb9af7'] }
+    { name: 'glacier', colors: ['#7dcfff', '#b4f9f8', '#89ddff'] },
+    { name: 'borealis', colors: ['#9ece6a', '#7aa2f7', '#bb9af7'] },
+    { name: 'sakura-alt', colors: ['#f7768e', '#ff9e64', '#bb9af7'] },
+    { name: 'ember-alt', colors: ['#f7768e', '#e0af68', '#ff9e64'] },
+    { name: 'glacier-alt', colors: ['#89ddff', '#b4f9f8', '#7dcfff'] },
+    { name: 'borealis-alt', colors: ['#bb9af7', '#7aa2f7', '#9ece6a'] }
 ];
 
 async function createPreview(width, height, theme) {
@@ -51,47 +55,36 @@ async function createPreview(width, height, theme) {
 }
 
 async function generatePreviews() {
-    const previewsDir = path.join(__dirname, '../marketing/previews');
+    const previewsDir = path.join(__dirname, '../dist/marketing/previews');
     await fs.ensureDir(previewsDir);
-
-    // Desktop preview (16:9)
-    const desktopWidth = 800;
-    const desktopHeight = 450;
-
-    // Mobile preview (9:19.5)
-    const mobileWidth = 400;
-    const mobileHeight = 866;
-
-    // Watch preview (1:1.22)
-    const watchWidth = 300;
-    const watchHeight = 366;
-
+    
+    // Generate preview images for each theme
     for (const theme of THEMES) {
-        console.log(`Generating previews for ${theme.name} theme...`);
-
-        // Generate desktop preview
-        const desktopCanvas = await createPreview(desktopWidth, desktopHeight, theme);
+        console.log(`Generating preview for ${theme.name} theme...`);
+        
+        // Create preview image
+        const canvas = await createPreview(800, 400, theme);
+        const buffer = canvas.toBuffer('image/png');
+        
+        // Save preview image
         await fs.writeFile(
-            path.join(previewsDir, `aurora-${theme.name}-FHD.png`),
-            desktopCanvas.toBuffer('image/png')
+            path.join(previewsDir, `${theme.name}.png`),
+            buffer
         );
-
-        // Generate mobile preview
-        const mobileCanvas = await createPreview(mobileWidth, mobileHeight, theme);
+        
+        // Create thumbnail
+        const thumbCanvas = await createPreview(400, 200, theme);
+        const thumbBuffer = thumbCanvas.toBuffer('image/png');
+        
+        // Save thumbnail
         await fs.writeFile(
-            path.join(previewsDir, `aurora-${theme.name}-iPhone14Pro.png`),
-            mobileCanvas.toBuffer('image/png')
-        );
-
-        // Generate watch preview
-        const watchCanvas = await createPreview(watchWidth, watchHeight, theme);
-        await fs.writeFile(
-            path.join(previewsDir, `aurora-${theme.name}-AppleWatch45mm.png`),
-            watchCanvas.toBuffer('image/png')
+            path.join(previewsDir, `${theme.name}-thumb.png`),
+            thumbBuffer
         );
     }
-
+    
     console.log('Preview images generated successfully!');
 }
 
-generatePreviews().catch(console.error);
+// Export the generate function
+module.exports = { generatePreviews };

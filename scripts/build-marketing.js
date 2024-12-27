@@ -52,7 +52,7 @@ async function buildMarketing() {
             { overwrite: true }
         );
     }
-
+    
     // Copy wallpapers
     if (await fs.pathExists(wallpaperDir)) {
         await fs.copy(
@@ -65,5 +65,5 @@ async function buildMarketing() {
     console.log('Marketing site built successfully!');
 }
 
-// Run the build
-buildMarketing().catch(console.error);
+// Export the build function
+module.exports = { buildMarketing };

@@ -49,6 +49,14 @@
         "background": "#1a1b26",
         "foreground": "#c0caf5",
         "accent": "#bb9af7"
+      },
+      "syntax": {
+        "keywords": "#565f89",
+        "strings": "#9ece6a",
+        "numbers": "#ff9e64",
+        "functions": "#7aa2f7",
+        "comments": "#414868",
+        "variables": "#bb9af7"
       }
     },
     "moonlight": {
@@ -70,90 +78,105 @@
       "primary": {
         "background": "#1f1d2e",
         "foreground": "#e0def4",
-        "accent": "#eb6f92"
+        "accent": "#f7768e"
       },
       "syntax": {
-        "keywords": "#eb6f92",
-        "strings": "#f6c177",
-        "numbers": "#ea9a97",
-        "functions": "#9ccfd8",
+        "keywords": "#ff9e64",
+        "strings": "#e0af68",
+        "numbers": "#ff9e64",
+        "functions": "#f7768e",
         "comments": "#6e6a86",
-        "variables": "#c4a7e7"
+        "variables": "#ff9e64"
       }
     },
     "forest": {
       "primary": {
-        "background": "#1d2021",
-        "foreground": "#d4be98",
-        "accent": "#a9b665"
+        "background": "#1b2028",
+        "foreground": "#d3c6aa",
+        "accent": "#9ece6a"
       },
       "syntax": {
-        "keywords": "#ea6962",
-        "strings": "#a9b665",
-        "numbers": "#d8a657",
-        "functions": "#7daea3",
-        "comments": "#665c54",
-        "variables": "#d3869b"
+        "keywords": "#73daca",
+        "strings": "#9ece6a",
+        "numbers": "#e69875",
+        "functions": "#73daca",
+        "comments": "#4f5b58",
+        "variables": "#9ece6a"
       }
     },
     "ocean": {
       "primary": {
-        "background": "#0f111a",
-        "foreground": "#a6accd",
-        "accent": "#84ffff"
+        "background": "#1c2433",
+        "foreground": "#c5d4f5",
+        "accent": "#2ac3de"
       },
       "syntax": {
-        "keywords": "#c792ea",
-        "strings": "#c3e88d",
-        "numbers": "#f78c6c",
-        "functions": "#82aaff",
-        "comments": "#464b5d",
-        "variables": "#89ddff"
+        "keywords": "#7dcfff",
+        "strings": "#b4f9f8",
+        "numbers": "#89ddff",
+        "functions": "#2ac3de",
+        "comments": "#506686",
+        "variables": "#7dcfff"
       }
     },
     "sakura": {
       "primary": {
         "background": "#1f1d2e",
-        "foreground": "#e2e0ec",
-        "accent": "#f0a6d2"
+        "foreground": "#e0def4",
+        "accent": "#f7768e"
       },
       "syntax": {
-        "keywords": "#f0a6d2",
-        "strings": "#f6c6e6",
-        "numbers": "#e9a6c2",
-        "functions": "#c4a6f0",
+        "keywords": "#bb9af7",
+        "strings": "#ff9e64",
+        "numbers": "#ff9e64",
+        "functions": "#f7768e",
         "comments": "#6e6a86",
-        "variables": "#d6a6e9"
+        "variables": "#bb9af7"
       }
     },
     "ember": {
       "primary": {
         "background": "#1c1917",
-        "foreground": "#e5d4c3",
-        "accent": "#ff7f50"
+        "foreground": "#e4d5c7",
+        "accent": "#f7768e"
       },
       "syntax": {
-        "keywords": "#ff7f50",
-        "strings": "#ffa07a",
-        "numbers": "#ff6347",
-        "functions": "#ffd700",
-        "comments": "#665c54",
-        "variables": "#daa520"
+        "keywords": "#ff9e64",
+        "strings": "#e0af68",
+        "numbers": "#ff9e64",
+        "functions": "#f7768e",
+        "comments": "#625757",
+        "variables": "#ff9e64"
       }
     },
     "glacier": {
       "primary": {
         "background": "#161821",
         "foreground": "#c6c8d1",
-        "accent": "#84a0c6"
+        "accent": "#7dcfff"
       },
       "syntax": {
-        "keywords": "#a093c7",
-        "strings": "#89b8c2",
-        "numbers": "#b4be82",
-        "functions": "#84a0c6",
-        "comments": "#6b7089",
-        "variables": "#a093c7"
+        "keywords": "#b4f9f8",
+        "strings": "#89ddff",
+        "numbers": "#89ddff",
+        "functions": "#7dcfff",
+        "comments": "#444b71",
+        "variables": "#b4f9f8"
+      }
+    },
+    "borealis": {
+      "primary": {
+        "background": "#1e2030",
+        "foreground": "#c8d3f5",
+        "accent": "#9ece6a"
+      },
+      "syntax": {
+        "keywords": "#bb9af7",
+        "strings": "#9ece6a",
+        "numbers": "#7aa2f7",
+        "functions": "#7aa2f7",
+        "comments": "#565f89",
+        "variables": "#bb9af7"
       }
     },
     "aurora": {

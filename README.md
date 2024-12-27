@@ -74,10 +74,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌟 Support
 
-- Website: [aurora-theme.com](https://aurora-theme.com)
-- Twitter: [@aurora_theme](https://twitter.com/aurora_theme)
-- Discord: [Join our community](https://discord.gg/aurora-theme)
-- Email: support@aurora-theme.com
+- Website: [aurora-theme.io](https://mizokuiam.github.io/aurora-theme/)
+- Twitter: [@MrMizoku](https://x.com/MrMizoku)
+- Email: support@mizokuiam.github.io
 
 ## 🙏 Credits
 
