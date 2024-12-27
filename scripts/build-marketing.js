@@ -44,13 +44,6 @@ async function buildMarketing() {
         path.join(distDir, 'previews'),
         { overwrite: true }
     );
-
-    // Copy CNAME file
-    await fs.copy(
-        path.join(marketingDir, 'CNAME'),
-        path.join(distDir, 'CNAME'),
-        { overwrite: true }
-    );
     
     console.log('Marketing site built successfully!');
 }
