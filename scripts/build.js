@@ -58,5 +58,31 @@ async function generateThemes() {
     console.log('All builds completed successfully!');
 }
 
-// Run the build process
-generateThemes().catch(console.error);
+async function buildThemes() {
+    // Create dist directory
+    await fs.ensureDir('dist');
+
+    // Build VS Code theme
+    console.log('Building VS Code theme...');
+    await fs.copy('src/themes/vscode', 'dist/vscode');
+
+    // Build JetBrains theme
+    console.log('Building JetBrains theme...');
+    await fs.copy('src/themes/jetbrains', 'dist/jetbrains');
+
+    // Build Sublime Text theme
+    console.log('Building Sublime theme...');
+    await fs.copy('src/themes/sublime', 'dist/sublime');
+
+    // Build Atom theme
+    console.log('Building Atom theme...');
+    await fs.copy('src/themes/atom', 'dist/atom');
+
+    // Build marketing site
+    console.log('Building marketing site...');
+    await fs.copy('src/marketing', 'dist/marketing');
+
+    console.log('Build completed successfully!');
+}
+
+buildThemes().catch(console.error);
