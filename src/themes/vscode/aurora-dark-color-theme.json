@@ -4,6 +4,8 @@
   "colors": {
     "editor.background": "#1a1b26",
     "editor.foreground": "#c0caf5",
+    "editor.selectionBackground": "#283457",
+    "editor.selectionForeground": "#ffffff",
     "activityBar.background": "#1a1b26",
     "sideBar.background": "#1f2335",
     "titleBar.activeBackground": "#1a1b26",
