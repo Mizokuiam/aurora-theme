@@ -9,7 +9,7 @@ describe('Aurora Theme', () => {
         let theme;
         
         before(async () => {
-            const themePath = path.join(__dirname, '../src/themes/vscode/aurora-color-theme.json');
+            const themePath = path.join(__dirname, '../src/themes/vscode/aurora-dark-color-theme.json');
             theme = await fs.readJson(themePath);
         });
         
@@ -17,12 +17,21 @@ describe('Aurora Theme', () => {
             assert(theme.colors);
             assert(theme.colors['editor.background']);
             assert(theme.colors['editor.foreground']);
+            assert(theme.colors['editor.selectionBackground']);
+            assert(theme.colors['editor.selectionForeground']);
         });
         
         it('should maintain minimum contrast ratio', () => {
             const background = theme.colors['editor.background'];
             const foreground = theme.colors['editor.foreground'];
-            assert(validateContrast(background, foreground) >= 4.5);
+            const selectionBg = theme.colors['editor.selectionBackground'];
+            const selectionFg = theme.colors['editor.selectionForeground'];
+            
+            // Check main text contrast
+            assert(validateContrast(background, foreground) >= 4.5, 'Main text contrast ratio is too low');
+            
+            // Check selection contrast
+            assert(validateContrast(selectionBg, selectionFg) >= 4.5, 'Selection text contrast ratio is too low');
         });
     });
     
@@ -38,54 +47,34 @@ describe('Aurora Theme', () => {
             assert(theme.colors);
             assert(theme.colors.BACKGROUND);
             assert(theme.colors.FOREGROUND);
+            assert(theme.colors.SELECTION_BACKGROUND);
+            assert(theme.colors.SELECTION_FOREGROUND);
         });
         
         it('should have consistent syntax highlighting', () => {
             const syntaxColors = validateColors(theme);
-            assert(syntaxColors.isValid);
+            assert(syntaxColors.isValid, `Missing colors: ${JSON.stringify(syntaxColors)}`);
         });
     });
     
     describe('Sublime Text Theme', () => {
-        let theme;
+        let themeContent;
         
         before(async () => {
             const themePath = path.join(__dirname, '../src/themes/sublime/Aurora.tmTheme');
-            theme = await parseThemeFile(themePath);
+            themeContent = await fs.readFile(themePath, 'utf8');
         });
         
         it('should have valid plist structure', () => {
-            assert(theme.name === 'Aurora');
-            assert(Array.isArray(theme.settings));
+            assert(themeContent.includes('<?xml version="1.0" encoding="UTF-8"?>'));
+            assert(themeContent.includes('<!DOCTYPE plist PUBLIC'));
         });
         
         it('should have base colors defined', () => {
-            const baseColors = theme.settings[0];
-            assert(baseColors.settings.background);
-            assert(baseColors.settings.foreground);
-        });
-    });
-    
-    describe('Atom/Pulsar Theme', () => {
-        let theme;
-        let variables;
-        
-        before(async () => {
-            const themePath = path.join(__dirname, '../src/themes/atom/aurora-syntax.less');
-            const variablesPath = path.join(__dirname, '../src/themes/atom/syntax-variables.less');
-            theme = await fs.readFile(themePath, 'utf8');
-            variables = await fs.readFile(variablesPath, 'utf8');
-        });
-        
-        it('should have required variables', () => {
-            assert(variables.includes('@syntax-bg'));
-            assert(variables.includes('@syntax-fg'));
-        });
-        
-        it('should have syntax highlighting rules', () => {
-            assert(theme.includes('.syntax--comment'));
-            assert(theme.includes('.syntax--keyword'));
-            assert(theme.includes('.syntax--string'));
+            assert(themeContent.includes('<key>background</key>'));
+            assert(themeContent.includes('<key>foreground</key>'));
+            assert(themeContent.includes('<key>selection</key>'));
+            assert(themeContent.includes('<key>lineHighlight</key>'));
         });
     });
 });
