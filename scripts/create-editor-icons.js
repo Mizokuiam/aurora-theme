@@ -13,29 +13,46 @@ async function createEditorIcon(name, color) {
 
     // Draw icon
     ctx.fillStyle = color;
-    ctx.font = 'bold 40px Arial';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
 
-    let icon;
     switch (name) {
         case 'vscode':
-            icon = '{}';
+            // Draw curly braces
+            ctx.font = 'bold 36px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('{ }', size/2, size/2);
             break;
-        case 'jetbrains':
-            icon = '⬡';
-            break;
-        case 'sublime':
-            icon = '⬒';
-            break;
-        case 'atom':
-            icon = '⚛';
-            break;
-        default:
-            icon = '?';
-    }
 
-    ctx.fillText(icon, size/2, size/2);
+        case 'jetbrains':
+            // Draw diamond shape
+            ctx.beginPath();
+            ctx.moveTo(size/2, 12);
+            ctx.lineTo(size-12, size/2);
+            ctx.lineTo(size/2, size-12);
+            ctx.lineTo(12, size/2);
+            ctx.closePath();
+            ctx.stroke();
+            break;
+
+        case 'sublime':
+            // Draw square brackets
+            ctx.font = 'bold 36px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('[ ]', size/2, size/2);
+            break;
+
+        case 'atom':
+            // Draw 26B square
+            ctx.font = '24px monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('26', size/2, size/2 - 8);
+            ctx.fillText('B', size/2, size/2 + 16);
+            break;
+    }
 
     return canvas;
 }
