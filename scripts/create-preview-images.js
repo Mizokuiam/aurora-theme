@@ -51,7 +51,7 @@ async function createPreview(width, height, theme) {
 }
 
 async function generatePreviews() {
-    const previewsDir = path.join(__dirname, '../assets/previews');
+    const previewsDir = path.join(__dirname, '../marketing/previews');
     await fs.ensureDir(previewsDir);
 
     // Desktop preview (16:9)
@@ -90,6 +90,8 @@ async function generatePreviews() {
             watchCanvas.toBuffer('image/png')
         );
     }
+
+    console.log('Preview images generated successfully!');
 }
 
 generatePreviews().catch(console.error);
