@@ -9,8 +9,11 @@ async function buildMarketing() {
     const distDir = path.join(__dirname, '../dist/marketing');
     const wallpaperDir = path.join(__dirname, '../assets/wallpapers');
     
-    // Create dist directory
+    // Create dist directory and subdirectories
     await fs.ensureDir(distDir);
+    await fs.ensureDir(path.join(distDir, 'previews'));
+    await fs.ensureDir(path.join(distDir, 'wallpapers'));
+    await fs.ensureDir(path.join(distDir, 'images'));
     
     // Copy and minify HTML
     const html = await fs.readFile(path.join(marketingDir, 'index.html'), 'utf8');
@@ -33,22 +36,31 @@ async function buildMarketing() {
     await fs.writeFile(path.join(distDir, 'script.js'), minifiedJs);
     
     // Copy images
-    await fs.copy(
-        path.join(marketingDir, 'images'),
-        path.join(distDir, 'images'),
-        { overwrite: true }
-    );
+    if (await fs.pathExists(path.join(marketingDir, 'images'))) {
+        await fs.copy(
+            path.join(marketingDir, 'images'),
+            path.join(distDir, 'images'),
+            { overwrite: true }
+        );
+    }
     
     // Copy preview images
-    await fs.copy(
-        path.join(marketingDir, 'previews'),
-        path.join(distDir, 'previews'),
-        { overwrite: true }
-    );
+    if (await fs.pathExists(path.join(marketingDir, 'previews'))) {
+        await fs.copy(
+            path.join(marketingDir, 'previews'),
+            path.join(distDir, 'previews'),
+            { overwrite: true }
+        );
+    }
 
     // Copy wallpapers
-    const wallpaperDistDir = path.join(distDir, 'wallpapers');
-    await fs.copy(wallpaperDir, wallpaperDistDir, { overwrite: true });
+    if (await fs.pathExists(wallpaperDir)) {
+        await fs.copy(
+            wallpaperDir,
+            path.join(distDir, 'wallpapers'),
+            { overwrite: true }
+        );
+    }
     
     console.log('Marketing site built successfully!');
 }
