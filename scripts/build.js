@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { buildMarketing } = require('./build-marketing');
 
 const THEME_VARIANTS = [
     'aurora',
@@ -49,18 +50,9 @@ async function buildThemes() {
         path.join(distDir, 'sublime')
     );
 
-    console.log('Copying Atom themes...');
-    await fs.copy(
-        path.join(__dirname, '../src/themes/atom'),
-        path.join(distDir, 'atom')
-    );
-
     // Build marketing site
     console.log('Building marketing site...');
-    await fs.copy(
-        path.join(__dirname, '../src/marketing'),
-        path.join(distDir, 'marketing')
-    );
+    await buildMarketing();
 
     console.log('Build completed successfully!');
 }
