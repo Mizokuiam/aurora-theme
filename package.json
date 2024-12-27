@@ -24,6 +24,7 @@
   "author": "Aurora Theme Team",
   "license": "MIT",
   "dependencies": {
+    "canvas": "^3.0.0",
     "color": "^4.2.3",
     "fs-extra": "^11.1.1"
   },
