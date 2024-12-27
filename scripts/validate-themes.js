@@ -8,10 +8,14 @@ async function validateThemes() {
     const vscodePath = path.join(__dirname, '../src/themes/vscode');
     const vscodeFiles = await fs.readdir(vscodePath);
     for (const file of vscodeFiles) {
-        if (file.endsWith('.json')) {
+        if (file.endsWith('-color-theme.json')) {
             const theme = await fs.readJson(path.join(vscodePath, file));
             if (!theme.colors || !theme.colors['editor.background'] || !theme.colors['editor.foreground']) {
                 throw new Error(`VS Code theme ${file} is missing required colors`);
+            }
+            // Check tokenColors
+            if (!Array.isArray(theme.tokenColors) || theme.tokenColors.length === 0) {
+                throw new Error(`VS Code theme ${file} is missing token colors`);
             }
         }
     }
@@ -24,7 +28,7 @@ async function validateThemes() {
             const theme = await parseThemeFile(path.join(jetbrainsPath, file));
             const validation = validateColors(theme);
             if (!validation.isValid) {
-                throw new Error(`JetBrains theme ${file} validation failed: ${JSON.stringify(validation)}`);
+                throw new Error(`JetBrains theme ${file} validation failed:\nMissing required colors: ${validation.missingRequired.join(', ')}\nMissing syntax colors: ${validation.missingSyntax.join(', ')}`);
             }
         }
     }
@@ -38,22 +42,43 @@ async function validateThemes() {
             if (!content.includes('<key>background</key>') || !content.includes('<key>foreground</key>')) {
                 throw new Error(`Sublime theme ${file} is missing required colors`);
             }
+            // Check for basic scopes
+            const requiredScopes = ['comment', 'string', 'constant.numeric', 'keyword'];
+            for (const scope of requiredScopes) {
+                if (!content.includes(`<string>${scope}</string>`)) {
+                    throw new Error(`Sublime theme ${file} is missing required scope: ${scope}`);
+                }
+            }
         }
     }
 
     // Validate Atom themes
     const atomPath = path.join(__dirname, '../src/themes/atom');
     const atomFiles = await fs.readdir(atomPath);
+    let hasVariables = false;
+    let hasSyntax = false;
+    
     for (const file of atomFiles) {
-        if (file.endsWith('.less')) {
+        if (file === 'syntax-variables.less') {
             const content = await fs.readFile(path.join(atomPath, file), 'utf8');
             if (!content.includes('@syntax-bg') || !content.includes('@syntax-fg')) {
                 throw new Error(`Atom theme ${file} is missing required variables`);
             }
+            hasVariables = true;
+        } else if (file === 'aurora-syntax.less') {
+            const content = await fs.readFile(path.join(atomPath, file), 'utf8');
+            if (!content.includes('.syntax--comment') || !content.includes('.syntax--string')) {
+                throw new Error(`Atom theme ${file} is missing required syntax styles`);
+            }
+            hasSyntax = true;
         }
     }
+    
+    if (!hasVariables || !hasSyntax) {
+        throw new Error('Atom theme is missing required files');
+    }
 
-    console.log('All theme files validated successfully!');
+    console.log('All themes validated successfully!');
 }
 
 validateThemes().catch(console.error);

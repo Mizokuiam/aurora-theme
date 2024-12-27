@@ -1,43 +1,32 @@
 const fs = require('fs-extra');
 const path = require('path');
-
-function hexToRGB(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return [r, g, b];
-}
-
-function getLuminance(r, g, b) {
-    const [rs, gs, bs] = [r, g, b].map(c => {
-        c = c / 255;
-        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-    });
-    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
-}
-
-function getContrastRatio(l1, l2) {
-    const lighter = Math.max(l1, l2);
-    const darker = Math.min(l1, l2);
-    return (lighter + 0.05) / (darker + 0.05);
-}
+const { validateContrast } = require('../test/utils/validator');
 
 async function checkContrast() {
+    const MIN_CONTRAST_RATIO = 4.5; // WCAG AA standard for normal text
+    
     // Check VS Code themes
     const vscodePath = path.join(__dirname, '../src/themes/vscode');
     const vscodeFiles = await fs.readdir(vscodePath);
     for (const file of vscodeFiles) {
-        if (file.endsWith('.json')) {
+        if (file.endsWith('-color-theme.json')) {
             const theme = await fs.readJson(path.join(vscodePath, file));
             const bg = theme.colors['editor.background'];
             const fg = theme.colors['editor.foreground'];
-            const [bgR, bgG, bgB] = hexToRGB(bg);
-            const [fgR, fgG, fgB] = hexToRGB(fg);
-            const bgLum = getLuminance(bgR, bgG, bgB);
-            const fgLum = getLuminance(fgR, fgG, fgB);
-            const ratio = getContrastRatio(bgLum, fgLum);
-            if (ratio < 4.5) {
-                throw new Error(`VS Code theme ${file} has insufficient contrast ratio: ${ratio.toFixed(2)}`);
+            const ratio = validateContrast(bg, fg);
+            
+            if (ratio < MIN_CONTRAST_RATIO) {
+                throw new Error(`VS Code theme ${file} has insufficient contrast ratio: ${ratio.toFixed(2)} (minimum: ${MIN_CONTRAST_RATIO})`);
+            }
+            
+            // Check selection contrast
+            const selectionBg = theme.colors['editor.selectionBackground'];
+            const selectionFg = theme.colors['editor.selectionForeground'] || fg;
+            if (selectionBg && selectionFg) {
+                const selectionRatio = validateContrast(selectionBg, selectionFg);
+                if (selectionRatio < MIN_CONTRAST_RATIO) {
+                    throw new Error(`VS Code theme ${file} has insufficient selection contrast ratio: ${selectionRatio.toFixed(2)}`);
+                }
             }
         }
     }
@@ -50,21 +39,27 @@ async function checkContrast() {
             const content = await fs.readFile(path.join(jetbrainsPath, file), 'utf8');
             const bgMatch = content.match(/BACKGROUND" value="([^"]+)"/);
             const fgMatch = content.match(/FOREGROUND" value="([^"]+)"/);
+            
             if (bgMatch && fgMatch) {
-                const bg = '#' + bgMatch[1];
-                const fg = '#' + fgMatch[1];
-                const [bgR, bgG, bgB] = hexToRGB(bg);
-                const [fgR, fgG, fgB] = hexToRGB(fg);
-                const bgLum = getLuminance(bgR, bgG, bgB);
-                const fgLum = getLuminance(fgR, fgG, fgB);
-                const ratio = getContrastRatio(bgLum, fgLum);
-                if (ratio < 4.5) {
+                const ratio = validateContrast(bgMatch[1], fgMatch[1]);
+                if (ratio < MIN_CONTRAST_RATIO) {
                     throw new Error(`JetBrains theme ${file} has insufficient contrast ratio: ${ratio.toFixed(2)}`);
+                }
+            }
+            
+            // Check selection contrast
+            const selBgMatch = content.match(/SELECTION_BACKGROUND" value="([^"]+)"/);
+            const selFgMatch = content.match(/SELECTION_FOREGROUND" value="([^"]+)"/);
+            
+            if (selBgMatch && selFgMatch) {
+                const selectionRatio = validateContrast(selBgMatch[1], selFgMatch[1]);
+                if (selectionRatio < MIN_CONTRAST_RATIO) {
+                    throw new Error(`JetBrains theme ${file} has insufficient selection contrast ratio: ${selectionRatio.toFixed(2)}`);
                 }
             }
         }
     }
-
+    
     console.log('All themes pass WCAG AA contrast requirements!');
 }
 
