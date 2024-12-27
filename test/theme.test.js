@@ -9,7 +9,7 @@ describe('Aurora Theme', () => {
         let theme;
         
         before(async () => {
-            const themePath = path.join(__dirname, '../src/themes/vscode/aurora-theme.json');
+            const themePath = path.join(__dirname, '../src/themes/vscode/aurora-color-theme.json');
             theme = await fs.readJson(themePath);
         });
         
@@ -32,7 +32,6 @@ describe('Aurora Theme', () => {
         before(async () => {
             const themePath = path.join(__dirname, '../src/themes/jetbrains/Aurora.xml');
             theme = await parseThemeFile(themePath);
-            console.log('JetBrains Theme:', JSON.stringify(theme, null, 2));
         });
         
         it('should have required color options', () => {
@@ -43,7 +42,6 @@ describe('Aurora Theme', () => {
         
         it('should have consistent syntax highlighting', () => {
             const syntaxColors = validateColors(theme);
-            console.log('Syntax Colors Validation:', syntaxColors);
             assert(syntaxColors.isValid);
         });
     });
@@ -70,19 +68,22 @@ describe('Aurora Theme', () => {
     
     describe('Atom/Pulsar Theme', () => {
         let theme;
+        let variables;
         
         before(async () => {
-            const themePath = path.join(__dirname, '../src/themes/atom/Aurora.less');
+            const themePath = path.join(__dirname, '../src/themes/atom/aurora-syntax.less');
+            const variablesPath = path.join(__dirname, '../src/themes/atom/syntax-variables.less');
             theme = await fs.readFile(themePath, 'utf8');
+            variables = await fs.readFile(variablesPath, 'utf8');
         });
         
         it('should have required variables', () => {
-            assert(theme.includes('@background'));
-            assert(theme.includes('@foreground'));
+            assert(variables.includes('@syntax-bg'));
+            assert(variables.includes('@syntax-fg'));
         });
         
         it('should have syntax highlighting rules', () => {
-            assert(theme.includes('.syntax--source'));
+            assert(theme.includes('.syntax--comment'));
             assert(theme.includes('.syntax--keyword'));
             assert(theme.includes('.syntax--string'));
         });
