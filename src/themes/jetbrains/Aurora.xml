@@ -4,8 +4,8 @@
         <!-- Base Colors -->
         <option name="BACKGROUND" value="1a1b26"/>
         <option name="FOREGROUND" value="c0caf5"/>
-        <option name="LINE_NUMBERS_COLOR" value="3b4261"/>
-        <option name="SELECTION_BACKGROUND" value="33467c"/>
+        <option name="LINE_NUMBERS_COLOR" value="565f89"/>
+        <option name="SELECTION_BACKGROUND" value="283457"/>
         <option name="CARET_ROW_COLOR" value="292e42"/>
         
         <!-- UI Colors -->
@@ -29,7 +29,7 @@
         <!-- Keywords -->
         <option name="DEFAULT_KEYWORD">
             <value>
-                <option name="FOREGROUND" value="bb9af7"/>
+                <option name="FOREGROUND" value="9d7cd8"/>
                 <option name="FONT_TYPE" value="1"/>
             </value>
         </option>
@@ -49,6 +49,12 @@
         </option>
         
         <!-- Comments -->
+        <option name="DEFAULT_COMMENT">
+            <value>
+                <option name="FOREGROUND" value="565f89"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
         <option name="DEFAULT_BLOCK_COMMENT">
             <value>
                 <option name="FOREGROUND" value="565f89"/>
