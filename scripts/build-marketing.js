@@ -7,6 +7,7 @@ const htmlMinifier = require('html-minifier');
 async function buildMarketing() {
     const marketingDir = path.join(__dirname, '../marketing');
     const distDir = path.join(__dirname, '../dist/marketing');
+    const wallpaperDir = path.join(__dirname, '../assets/wallpapers');
     
     // Create dist directory
     await fs.ensureDir(distDir);
@@ -44,6 +45,10 @@ async function buildMarketing() {
         path.join(distDir, 'previews'),
         { overwrite: true }
     );
+
+    // Copy wallpapers
+    const wallpaperDistDir = path.join(distDir, 'wallpapers');
+    await fs.copy(wallpaperDir, wallpaperDistDir, { overwrite: true });
     
     console.log('Marketing site built successfully!');
 }

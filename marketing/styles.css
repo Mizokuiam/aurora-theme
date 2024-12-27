@@ -244,6 +244,88 @@ section h2 {
     color: var(--secondary-text);
 }
 
+/* Wallpapers Section */
+.wallpaper-categories {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.wallpaper-category {
+    background: rgba(26, 27, 38, 0.5);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.wallpaper-category h3 {
+    margin-bottom: 1.5rem;
+    color: #7aa2f7;
+}
+
+.wallpaper-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.wallpaper-preview {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.wallpaper-preview:hover {
+    transform: translateY(-5px);
+}
+
+.wallpaper-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.wallpaper-download {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 27, 38, 0.9);
+    padding: 1rem;
+    backdrop-filter: blur(5px);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.wallpaper-preview:hover .wallpaper-download {
+    transform: translateY(0);
+}
+
+.wallpaper-download h4 {
+    color: #7aa2f7;
+    margin-bottom: 0.5rem;
+}
+
+.download-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.download-buttons a {
+    background: #7aa2f7;
+    color: #1a1b26;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.download-buttons a:hover {
+    background: #bb9af7;
+}
+
 /* Footer */
 footer {
     background: var(--secondary-bg);
@@ -307,6 +389,22 @@ footer {
 
     .pricing-card.featured {
         transform: none;
+    }
+
+    .wallpaper-categories {
+        gap: 1rem;
+    }
+
+    .wallpaper-category {
+        padding: 1rem;
+    }
+
+    .wallpaper-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wallpaper-download {
+        transform: translateY(0);
     }
 }
 
