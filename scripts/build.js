@@ -2,13 +2,11 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const THEME_VARIANTS = [
-    'default',
-    'storm',
-    'night',
-    'moonlight',
-    'sunset',
-    'forest',
-    'ocean'
+    'aurora',
+    'sakura',
+    'ember',
+    'glacier',
+    'borealis'
 ];
 
 async function loadBaseColors() {
@@ -16,71 +14,53 @@ async function loadBaseColors() {
     return JSON.parse(await fs.readFile(colorsPath, 'utf8'));
 }
 
-async function generateThemes() {
-    const baseColors = await loadBaseColors();
-    const buildVSCode = require('./build-vscode');
-    const buildJetBrains = require('./build-jetbrains');
-    const buildSublime = require('./build-sublime');
-    const buildAtom = require('./build-atom');
+async function buildThemes() {
+    console.log('Starting theme build process...');
     
     // Create dist directory
     const distDir = path.join(__dirname, '../dist');
     await fs.ensureDir(distDir);
+
+    // Load base colors
+    const baseColors = await loadBaseColors();
     
-    // Generate themes for each variant
-    for (const variant of THEME_VARIANTS) {
-        const colors = variant === 'default' ? baseColors.colors : {
-            ...baseColors.colors,
-            ...baseColors.variants[variant]
-        };
-        
-        console.log(`Generating ${variant} theme...`);
-        
-        // Build for each editor
-        await Promise.all([
-            buildVSCode(colors, variant),
-            buildJetBrains(colors, variant),
-            buildSublime(colors, variant),
-            buildAtom(colors, variant)
-        ]);
-    }
-    
-    // Build marketing site
-    console.log('Building marketing site...');
-    const { buildMarketing } = require('./build-marketing');
-    await buildMarketing();
-    
-    // Generate preview images
-    console.log('Generating preview images...');
-    const { generatePreviews } = require('./create-preview-images');
-    await generatePreviews();
-    
-    console.log('All builds completed successfully!');
-}
+    // Create editor-specific directories
+    await fs.ensureDir(path.join(distDir, 'vscode'));
+    await fs.ensureDir(path.join(distDir, 'jetbrains'));
+    await fs.ensureDir(path.join(distDir, 'sublime'));
+    await fs.ensureDir(path.join(distDir, 'atom'));
 
-async function buildThemes() {
-    // Create dist directory
-    await fs.ensureDir('dist');
+    // Copy theme files
+    console.log('Copying VS Code themes...');
+    await fs.copy(
+        path.join(__dirname, '../src/themes/vscode'),
+        path.join(distDir, 'vscode')
+    );
 
-    // Build VS Code theme
-    console.log('Building VS Code theme...');
-    await fs.copy('src/themes/vscode', 'dist/vscode');
+    console.log('Copying JetBrains themes...');
+    await fs.copy(
+        path.join(__dirname, '../src/themes/jetbrains'),
+        path.join(distDir, 'jetbrains')
+    );
 
-    // Build JetBrains theme
-    console.log('Building JetBrains theme...');
-    await fs.copy('src/themes/jetbrains', 'dist/jetbrains');
+    console.log('Copying Sublime Text themes...');
+    await fs.copy(
+        path.join(__dirname, '../src/themes/sublime'),
+        path.join(distDir, 'sublime')
+    );
 
-    // Build Sublime Text theme
-    console.log('Building Sublime theme...');
-    await fs.copy('src/themes/sublime', 'dist/sublime');
-
-    // Build Atom theme
-    console.log('Building Atom theme...');
-    await fs.copy('src/themes/atom', 'dist/atom');
+    console.log('Copying Atom themes...');
+    await fs.copy(
+        path.join(__dirname, '../src/themes/atom'),
+        path.join(distDir, 'atom')
+    );
 
     // Build marketing site
     console.log('Building marketing site...');
-    await fs.copy('src/marketing', 'dist/marketing');
+    await fs.copy(
+        path.join(__dirname, '../src/marketing'),
+        path.join(distDir, 'marketing')
+    );
 
     console.log('Build completed successfully!');
 }
