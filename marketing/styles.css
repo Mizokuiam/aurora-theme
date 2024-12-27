@@ -291,85 +291,72 @@ section h2 {
 }
 
 /* Wallpapers Section */
-.wallpaper-categories {
-    display: grid;
-    gap: 2rem;
-    margin-top: 2rem;
+.wallpapers-section {
+    padding: 4rem 2rem;
+    background-color: var(--bg-darker);
+}
+
+.wallpapers-section h2 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.wallpapers-section > p {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
 }
 
 .wallpaper-category {
-    background: rgba(26, 27, 38, 0.5);
-    border-radius: 12px;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
+    margin-bottom: 3rem;
 }
 
 .wallpaper-category h3 {
+    color: var(--text-primary);
     margin-bottom: 1.5rem;
-    color: #7aa2f7;
+    text-align: center;
 }
 
 .wallpaper-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    padding: 0 1rem;
 }
 
-.wallpaper-preview {
-    position: relative;
-    border-radius: 8px;
+.wallpaper-item {
+    background: var(--bg-darker);
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
-.wallpaper-preview:hover {
+.wallpaper-item:hover {
     transform: translateY(-5px);
 }
 
-.wallpaper-preview img {
+.wallpaper-preview {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    display: block;
+    border-radius: 8px 8px 0 0;
 }
 
-.wallpaper-download {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(26, 27, 38, 0.9);
+.download-button {
+    display: block;
+    text-align: center;
     padding: 1rem;
-    backdrop-filter: blur(5px);
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.wallpaper-preview:hover .wallpaper-download {
-    transform: translateY(0);
-}
-
-.wallpaper-download h4 {
-    color: #7aa2f7;
-    margin-bottom: 0.5rem;
-}
-
-.download-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.download-buttons a {
-    background: #7aa2f7;
-    color: #1a1b26;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    background: var(--primary);
+    color: var(--text-primary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-weight: 500;
     transition: background-color 0.3s ease;
 }
 
-.download-buttons a:hover {
-    background: #bb9af7;
+.download-button:hover {
+    background: var(--primary-dark);
 }
 
 /* Footer */
