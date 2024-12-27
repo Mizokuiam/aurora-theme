@@ -8,6 +8,7 @@ async function buildMarketing() {
     const marketingDir = path.join(__dirname, '../marketing');
     const distDir = path.join(__dirname, '../dist/marketing');
     const wallpaperDir = path.join(__dirname, '../assets/wallpapers');
+    const previewDir = path.join(__dirname, '../assets/previews');
     
     // Create dist directory
     await fs.ensureDir(distDir);
@@ -40,11 +41,17 @@ async function buildMarketing() {
     );
     
     // Copy preview images
-    await fs.copy(
-        path.join(__dirname, '../assets/previews'),
-        path.join(distDir, 'previews'),
-        { overwrite: true }
-    );
+    await fs.ensureDir(path.join(distDir, 'previews'));
+    const previewFiles = await fs.readdir(previewDir);
+    for (const file of previewFiles) {
+        if (file.endsWith('.png')) {
+            await fs.copy(
+                path.join(previewDir, file),
+                path.join(distDir, 'previews', file),
+                { overwrite: true }
+            );
+        }
+    }
 
     // Copy wallpapers
     const wallpaperDistDir = path.join(distDir, 'wallpapers');
