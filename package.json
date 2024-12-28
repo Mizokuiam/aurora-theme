@@ -1,8 +1,16 @@
 {
-  "name": "aurora-theme",
-  "version": "1.0.0",
-  "description": "A beautiful and modern theme for code editors",
-  "main": "index.js",
+  "name": "aurora-theme-pro",
+  "version": "1.1.0",
+  "description": "A beautiful and modern theme for VS Code. Premium developer experience with 11 carefully crafted themes.",
+  "contributes": {
+    "themes": [
+      {
+        "label": "Aurora",
+        "uiTheme": "vs-dark",
+        "path": "./themes/aurora-dark-color-theme.json"
+      }
+    ]
+  },
   "scripts": {
     "test": "mocha test/**/*.test.js",
     "build": "node scripts/build.js",
@@ -40,5 +48,13 @@
   },
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "publisher": "mizokuiam",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mizokuiam/aurora-theme"
   }
 }

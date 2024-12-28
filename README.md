@@ -6,15 +6,24 @@ A premium theme collection for modern development environments, featuring carefu
 
 ## ✨ Features
 
-- 11 carefully crafted theme variants
+- Basic theme variant for VS Code
 - Optimized for readability and reduced eye strain
-- Support for major editors (VS Code, JetBrains, Sublime Text, Atom)
 - Semantic highlighting support
-- Custom wallpaper pack
-- Regular updates and improvements
 
-## 🎨 Theme Variants
+## 🌟 Premium Version
 
+For the complete Aurora Theme experience with all features, check out our [Premium Version on Gumroad](https://mrmizoku.gumroad.com/l/aurora-theme-team)!
+
+### Premium Features Include:
+- **All 11 carefully crafted theme variants**
+- **Support for major editors** (VS Code, JetBrains, Sublime Text)
+- **Custom wallpaper pack**
+- **Priority updates and improvements**
+- **Premium support**
+
+Current marketplace version includes the basic Aurora Default variant. Upgrade to Premium for the full experience!
+
+## 🎨 Theme Variants (Premium)
 - **Aurora Default**: Perfect balance of contrast and vibrancy
 - **Aurora Storm**: Higher contrast for bright environments
 - **Aurora Night**: Minimal eye strain for late-night coding
