@@ -2,6 +2,7 @@
   "name": "aurora-theme-pro",
   "version": "1.1.0",
   "description": "A beautiful and modern theme for VS Code. Premium developer experience with 11 carefully crafted themes.",
+  "icon": "assets/icon.png",
   "contributes": {
     "themes": [
       {
